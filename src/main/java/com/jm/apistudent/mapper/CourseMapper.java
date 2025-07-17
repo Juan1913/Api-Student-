@@ -1,0 +1,26 @@
+package com.jm.apistudent.mapper;
+import com.jm.apistudent.dto.CourseDTO;
+import com.jm.apistudent.entity.CourseEntity;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
+
+@Mapper(
+        componentModel = MappingConstants.ComponentModel.SPRING,
+        unmappedTargetPolicy = ReportingPolicy.IGNORE
+)
+public interface CourseMapper {
+
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "description", source = "description")
+    @Mapping(target = "startDate", source = "startDate")
+    @Mapping(target = "endDate", source = "endDate")
+    CourseDTO fromCourseEntityToCourseDTO(CourseEntity courseEntity);
+
+
+    CourseEntity fromCourseDTOToCourseEntity(CourseDTO courseDTO);
+
+
+}
