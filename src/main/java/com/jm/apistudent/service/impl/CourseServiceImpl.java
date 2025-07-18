@@ -1,6 +1,8 @@
 package com.jm.apistudent.service.impl;
 
-import com.jm.apistudent.dto.GradeDTO;
+import com.jm.apistudent.dto.CourseDTO;
+import com.jm.apistudent.entity.CourseEntity;
+import com.jm.apistudent.mapper.CourseMapper;
 import com.jm.apistudent.repository.CourseEntityRepository;
 import com.jm.apistudent.repository.GradeEntityRepository;
 import com.jm.apistudent.repository.StudentEntityRepository;
@@ -17,19 +19,22 @@ public class CourseServiceImpl implements CourseService {
     final CourseEntityRepository courseEntityRepository;
     final StudentEntityRepository studentEntityRepository;
     final GradeEntityRepository gradeEntityRepository;
+    private final CourseMapper courseMapper;
 
     @Override
-    public void save(GradeDTO gradeDTO) {
+    public void save( CourseDTO courseDTO) {
+
+        CourseEntity courseEntity = courseMapper.fromCourseDTOToCourseEntity(courseDTO);
 
     }
 
     @Override
-    public GradeDTO findById(Long id) {
+    public CourseDTO findById(Long id) {
         return null;
     }
 
     @Override
-    public List<GradeDTO> findAll() {
+    public List<CourseDTO> findAll() {
         return List.of();
     }
 

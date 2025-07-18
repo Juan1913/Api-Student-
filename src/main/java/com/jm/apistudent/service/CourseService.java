@@ -1,16 +1,17 @@
 package com.jm.apistudent.service;
 
-import com.jm.apistudent.dto.GradeDTO;
+import com.jm.apistudent.dto.CourseDTO;
+
 
 import java.util.List;
 
 public interface CourseService {
 
-    void save(GradeDTO gradeDTO);
+    void save(CourseDTO courseDTO);
 
-    GradeDTO findById(Long id);
+    CourseDTO findById(Long id);
 
-    List<GradeDTO> findAll();
+    List<CourseDTO> findAll();
 
     void delete(Long id);
 }

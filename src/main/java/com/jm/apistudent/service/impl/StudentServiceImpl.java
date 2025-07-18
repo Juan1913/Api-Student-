@@ -1,6 +1,8 @@
 package com.jm.apistudent.service.impl;
 
 import com.jm.apistudent.dto.StudentDTO;
+import com.jm.apistudent.entity.StudentEntity;
+import com.jm.apistudent.mapper.StudentMapper;
 import com.jm.apistudent.repository.CourseEntityRepository;
 import com.jm.apistudent.repository.GradeEntityRepository;
 import com.jm.apistudent.repository.StudentEntityRepository;
@@ -17,10 +19,13 @@ public class StudentServiceImpl implements StudentService {
     private final StudentEntityRepository studentEntityRepository;
     private final GradeEntityRepository gradeEntityRepository;
     private final CourseEntityRepository courseEntityRepository;
+    private final StudentMapper studentMapper;
 
 
     @Override
     public void save(StudentDTO studentDTO) {
+
+        StudentEntity studentEntity = studentMapper.fromStudentDTOToStudentEntity(studentDTO);
 
     }
 

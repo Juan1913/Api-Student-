@@ -2,6 +2,7 @@ package com.jm.apistudent.mapper;
 import com.jm.apistudent.dto.GradeDTO;
 import com.jm.apistudent.entity.GradeEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import org.mapstruct.ReportingPolicy;
 
@@ -11,6 +12,11 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface GradeMapper {
 
+    @Mapping(target = "course", source = "course.name")
+    @Mapping(target = "student", source = "student.name")
     GradeDTO fromGradeEntityToGradeDTO(GradeEntity gradeEntity);
+
+
+
     GradeEntity fromGradeDTOToGradeEntity(GradeDTO gradeDTO);
 }
