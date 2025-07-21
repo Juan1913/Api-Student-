@@ -3,11 +3,11 @@ package com.jm.apistudent.exception;
 import lombok.Getter;
 
 @Getter
-public class NotFoundException extends RuntimeException {
+public class NotSaveException extends RuntimeException{
 
     private final String message;
 
-    public NotFoundException(String message) {
+    public NotSaveException(String message) {
         this.message = message;
     }
 

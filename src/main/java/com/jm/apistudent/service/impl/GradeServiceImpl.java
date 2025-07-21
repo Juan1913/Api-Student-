@@ -6,6 +6,7 @@ import com.jm.apistudent.exception.NotFoundException;
 import com.jm.apistudent.mapper.GradeMapper;
 import com.jm.apistudent.repository.CourseEntityRepository;
 import com.jm.apistudent.repository.GradeEntityRepository;
+import com.jm.apistudent.repository.StudentCourseEntityRepository;
 import com.jm.apistudent.repository.StudentEntityRepository;
 import com.jm.apistudent.service.GradeService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class GradeServiceImpl implements GradeService {
     final StudentEntityRepository studentEntityRepository;
     final CourseEntityRepository courseEntityRepository;
     private final GradeMapper gradeMapper;
+    private final StudentCourseEntityRepository studentCourseEntityRepository;
 
 
     @Override
@@ -28,13 +30,15 @@ public class GradeServiceImpl implements GradeService {
         GradeEntity gradeEntity = gradeMapper.fromGradeDTOToGradeEntity(gradeDTO);
 
         gradeEntity.setStudent(studentEntityRepository.findById(gradeDTO.getStudentId())
-                .orElseThrow(()-> new NotFoundException("Estudiante no encontrado")));
+                .orElseThrow(() -> new NotFoundException("Estudiante no encontrado")));
 
         gradeEntity.setCourse(courseEntityRepository.findById(gradeDTO.getCourseId())
-                .orElseThrow(()-> new NotFoundException("Curso no encontrado")));
+                .orElseThrow(() -> new NotFoundException("Curso no encontrado")));
 
         gradeEntityRepository.save(gradeEntity);
     }
+
+
 
 
     @Override
@@ -54,6 +58,9 @@ public class GradeServiceImpl implements GradeService {
 
     @Override
     public void delete(Long id) {
-       gradeEntityRepository.deleteById(id);
+        if (!gradeEntityRepository.existsById(id)) {
+            throw new NotFoundException("Calificación no encontrada con ID: " + id);
+        }
+        gradeEntityRepository.deleteById(id);
     }
 }

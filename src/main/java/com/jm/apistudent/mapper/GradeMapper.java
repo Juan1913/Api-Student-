@@ -1,22 +1,19 @@
 package com.jm.apistudent.mapper;
+
 import com.jm.apistudent.dto.GradeDTO;
 import com.jm.apistudent.entity.GradeEntity;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
-@Mapper(
-        componentModel = MappingConstants.ComponentModel.SPRING,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE
-)
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface GradeMapper {
 
-    @Mapping(target = "course", source = "course.name")
-    @Mapping(target = "student", source = "student.name")
+    // Al convertir de Entity a DTO: extraer IDs
+    @Mapping(target = "studentId", source = "student.id")
+    @Mapping(target = "courseId", source = "course.id")
     GradeDTO fromGradeEntityToGradeDTO(GradeEntity gradeEntity);
 
-
-
+    // Al convertir de DTO a Entity: ignorar las relaciones (las asignamos en el servicio)
+    @Mapping(target = "student", ignore = true)
+    @Mapping(target = "course", ignore = true)
     GradeEntity fromGradeDTOToGradeEntity(GradeDTO gradeDTO);
 }

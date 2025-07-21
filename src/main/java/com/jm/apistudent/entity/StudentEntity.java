@@ -2,13 +2,14 @@ package com.jm.apistudent.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
-@Table(name = "students")
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Entity
+@Table(name = "students")
+
 public class StudentEntity {
 
     @Id

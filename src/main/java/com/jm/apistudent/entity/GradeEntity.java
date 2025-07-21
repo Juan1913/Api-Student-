@@ -1,13 +1,14 @@
 package com.jm.apistudent.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
 
-@Entity
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 @Table(name = "grades")
 public class GradeEntity {
 
@@ -15,18 +16,14 @@ public class GradeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private Double grade;
 
     @ManyToOne
-    @MapsId("courseId")
-    @JoinColumn(name = "course_id", nullable = false)
-    private CourseEntity course;
-
-    @ManyToOne
-    @MapsId("studentId")
     @JoinColumn(name = "student_id", nullable = false)
     private StudentEntity student;
 
-
+    @ManyToOne
+    @JoinColumn(name = "course_id", nullable = false)
+    private CourseEntity course;
 }
