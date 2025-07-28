@@ -3,6 +3,9 @@ import java.util.Date;
 public class CourseDTO {
 
 
+
+    private Long id;
+
     private String name;
 
     private String description;
@@ -41,5 +44,13 @@ public class CourseDTO {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

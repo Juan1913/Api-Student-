@@ -1,6 +1,4 @@
 package com.jm.apistudent.controller;
-
-
 import com.jm.apistudent.dto.StudentDTO;
 import com.jm.apistudent.service.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/students")
+@RequestMapping("/api/v1/students")
 public class StudentController {
 
     private final StudentService studentService;
@@ -29,9 +27,9 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@Validated @RequestBody StudentDTO studentDTO) {
-        studentService.save(studentDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<StudentDTO> save(@Validated @RequestBody StudentDTO studentDTO) {
+        StudentDTO savedStudent = studentService.save(studentDTO);
+        return ResponseEntity.ok(savedStudent);
     }
 
     @DeleteMapping("/{id}")

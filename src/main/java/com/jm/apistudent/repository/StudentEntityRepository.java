@@ -9,4 +9,6 @@ public interface StudentEntityRepository extends JpaRepository<StudentEntity, Lo
 
     Optional<StudentEntity> findByName(String name);
 
+    boolean existsByEmail(String email);
+
 }

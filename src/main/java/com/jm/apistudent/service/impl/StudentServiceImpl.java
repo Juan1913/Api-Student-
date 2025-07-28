@@ -2,6 +2,7 @@ package com.jm.apistudent.service.impl;
 
 import com.jm.apistudent.dto.StudentDTO;
 import com.jm.apistudent.entity.StudentEntity;
+import com.jm.apistudent.exception.EmailAlreadyExistsException;
 import com.jm.apistudent.exception.NotFoundException;
 import com.jm.apistudent.exception.NotSaveException;
 import com.jm.apistudent.mapper.StudentMapper;
@@ -25,15 +26,17 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public void save(StudentDTO studentDTO) {
-
+    public StudentDTO save(StudentDTO studentDTO) {
+        if (studentEntityRepository.existsByEmail(studentDTO.getEmail())) {
+            throw new EmailAlreadyExistsException("El correo ya está registrado: " + studentDTO.getEmail());
+        }
         try {
             StudentEntity studentEntity = studentMapper.fromStudentDTOToStudentEntity(studentDTO);
-            studentEntityRepository.save(studentEntity);
+            StudentEntity savedEntity = studentEntityRepository.save(studentEntity);
+            return studentMapper.fromStudentEntityToStudentDTO(savedEntity);
         } catch (Exception e) {
             throw new NotSaveException("No se pudo guardar el estudiante: " + e.getMessage());
         }
-
     }
 
     @Override
@@ -49,6 +52,11 @@ public class StudentServiceImpl implements StudentService {
                 studentEntityRepository.findById(id)
                         .orElseThrow(() -> new NotFoundException("Estudiante no encontrado con ID: " + id))
         );
+    }
+
+    @Override
+    public StudentDTO update(Long id, StudentDTO studentDTO) {
+        return null;
     }
 
     @Override

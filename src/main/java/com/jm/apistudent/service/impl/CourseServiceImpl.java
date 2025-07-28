@@ -26,14 +26,16 @@ public class CourseServiceImpl implements CourseService {
     private final GradeMapper gradeMapper;
 
     @Override
-    public void save(CourseDTO courseDTO) {
+    public CourseDTO save(CourseDTO courseDTO) {
         try {
             CourseEntity courseEntity = courseMapper.fromCourseDTOToCourseEntity(courseDTO);
-            courseEntityRepository.save(courseEntity);
+            CourseEntity savedEntity = courseEntityRepository.save(courseEntity);
+            return courseMapper.fromCourseEntityToCourseDTO(savedEntity);
         } catch (Exception e) {
             throw new NotSaveException("No se pudo guardar el curso: " + e.getMessage());
         }
     }
+
 
     @Override
     public CourseDTO findById(Long id) {
